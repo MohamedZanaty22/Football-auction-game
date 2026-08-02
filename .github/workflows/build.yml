@@ -39,6 +39,10 @@ jobs:
         pip install "cython<3.0"
         pip install git+https://github.com/kivy/buildozer.git@master
 
+    - name: Initialize Buildozer
+      run: |
+        yes | buildozer init
+
     - name: Build with Buildozer
       run: |
         buildozer -v android debug
