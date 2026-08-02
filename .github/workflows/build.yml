@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -36,15 +36,15 @@ jobs:
             zlib1g-dev
 
         pip install --upgrade pip
-        pip install cython==0.29.33
-        pip install buildozer
+        pip install "cython<3.0"
+        pip install git+https://github.com/kivy/buildozer.git@master
 
     - name: Build with Buildozer
       run: |
         buildozer -v android debug
 
     - name: Upload APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: bin/*.apk
