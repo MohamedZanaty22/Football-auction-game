@@ -55,8 +55,17 @@ jobs:
         pip install --upgrade pip
         pip install "cython<3.0"
         pip install "kivy[base]"
-        pip install appdirs colorama sh jinja2
         pip install git+https://github.com/kivy/buildozer.git@master
+
+    - name: Force Android NDK r25b
+      run: |
+        echo "Removing conflicting NDK..."
+        sudo rm -rf /usr/local/lib/android/sdk/ndk/*
+        echo "Downloading NDK r25b..."
+        wget -q https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+        unzip -q android-ndk-r25b-linux.zip
+        mkdir -p /usr/local/lib/android/sdk/ndk/25.0.8775106
+        cp -r android-ndk-r25b/* /usr/local/lib/android/sdk/ndk/25.0.8775106/
 
     - name: Build with Buildozer
       run: |
