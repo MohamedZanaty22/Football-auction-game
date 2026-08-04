@@ -42,6 +42,13 @@ jobs:
         pip install "kivy[base]"
         pip install git+https://github.com/kivy/buildozer.git@master
 
+    - name: Install Android NDK 25b
+      run: |
+        echo "Installing NDK..."
+        wget -q https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+        unzip -q android-ndk-r25b-linux.zip -d $HOME/
+        echo "ANDROID_NDK=$HOME/android-ndk-r25b" >> $GITHUB_ENV
+
     - name: Build with Buildozer
       run: |
         buildozer -v android debug
