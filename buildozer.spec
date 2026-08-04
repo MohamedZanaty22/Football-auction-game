@@ -5,12 +5,11 @@ package.domain = org.football
 source.include_exts = py,png,jpg,kv,atlas
 source.dir = .
 version = 1.0
-requirements = python3,kivy,sqlite3
+requirements = python3==3.10,kivy,sqlite3
 orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET
 
-# إعدادات متوافقة لا تسبب تعارض
 android.api = 31
 android.minapi = 21
 android.sdk = 31
