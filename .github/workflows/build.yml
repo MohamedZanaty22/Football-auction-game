@@ -16,15 +16,15 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Cache Buildozer global directory
+    - name: Clear Old Cache and Setup New
       uses: actions/cache@v4
       with:
         path: |
           .buildozer
           ~/.buildozer
-        key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
+        key: ${{ runner.os }}-buildozer-v2-${{ hashFiles('buildozer.spec') }}
         restore-keys: |
-          ${{ runner.os }}-buildozer-
+          ${{ runner.os }}-buildozer-v2-
 
     - name: Install dependencies
       run: |
@@ -56,16 +56,6 @@ jobs:
         pip install "cython<3.0"
         pip install "kivy[base]"
         pip install git+https://github.com/kivy/buildozer.git@master
-
-    - name: Force Android NDK r25b
-      run: |
-        echo "Removing conflicting NDK..."
-        sudo rm -rf /usr/local/lib/android/sdk/ndk/*
-        echo "Downloading NDK r25b..."
-        wget -q https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
-        unzip -q android-ndk-r25b-linux.zip
-        mkdir -p /usr/local/lib/android/sdk/ndk/25.0.8775106
-        cp -r android-ndk-r25b/* /usr/local/lib/android/sdk/ndk/25.0.8775106/
 
     - name: Build with Buildozer
       run: |
